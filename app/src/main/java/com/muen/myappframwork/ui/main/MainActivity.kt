@@ -36,9 +36,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun observerData() {
         super.observerData()
-        viewModel.resultCode.observe(this){
-            if (it==SUCCESS_CODE){
-                if(viewModel.word != null){
+        viewModel.resultCode.observe(this) {
+            if (it == SUCCESS_CODE) {
+                if (viewModel.word != null) {
                     //显示上一次的一言和本次的一言
                     viewBinding.txtLastWord.text = MMKVManage.lastWord
                     viewBinding.txtWord.text = viewModel.word!!.hitokoto
@@ -48,9 +48,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             }
         }
 
-        viewModel.findResult.observe(this){
-            if(it.isNotEmpty()){
-                viewBinding.txtDbWord.text =  it.size.toString()
+        viewModel.findResult.observe(this) {
+            if (it.isNotEmpty()) {
+                viewBinding.txtDbWord.text = it.size.toString()
             }
         }
     }

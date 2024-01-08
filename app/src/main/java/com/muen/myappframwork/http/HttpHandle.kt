@@ -14,10 +14,10 @@ abstract class CommonHandler<T> : HttpResultHandler<T> {
     }
 
     override suspend fun onCodeResult(code: Int, msg: String?) {
-        Log.d("handle","code=$code,message=$msg")
+        Log.d("handle", "code=$code,message=$msg")
     }
 
     override suspend fun onErrorResult(throwable: Throwable) {
-        Log.d("handle","throwable=${throwable.toString()}")
+        Log.d("handle", "throwable=$throwable")
     }
 }

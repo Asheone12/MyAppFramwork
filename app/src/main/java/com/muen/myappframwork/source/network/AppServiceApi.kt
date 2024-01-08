@@ -11,5 +11,5 @@ interface AppServiceApi {
      * 随机一言
      */
     @GET("yiyan")
-    suspend fun randomWord(@Query("format") format:String):HttpResult<Word>
+    suspend fun randomWord(@Query("format") format: String): HttpResult<Word>
 }

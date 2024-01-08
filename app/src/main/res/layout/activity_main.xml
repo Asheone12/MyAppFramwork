@@ -10,56 +10,56 @@
         android:id="@+id/txt_last_word"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="18sp"
         android:layout_marginHorizontal="30dp"
         android:layout_marginBottom="30dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/txt_word"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/txt_word" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/txt_word"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="18sp"
         android:layout_marginHorizontal="30dp"
         android:layout_marginBottom="30dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/btn_word"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/btn_word" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btn_word"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="随机一言"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btn_db_word"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="数据库现有一言数"
         android:layout_marginTop="30dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="数据库现有一言数"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_word"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_word" />
 
     <TextView
         android:id="@+id/txt_db_word"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="18sp"
         android:layout_marginHorizontal="30dp"
         android:layout_marginTop="30dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_db_word" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

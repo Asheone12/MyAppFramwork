@@ -17,10 +17,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainVM @Inject constructor(val repo: AppServiceRepo) : ViewModel(){
+class MainVM @Inject constructor(val repo: AppServiceRepo) : ViewModel() {
     val resultCode = MutableLiveData<Int?>()
-    var resultMsg:String?=null
-    var word: Word?=null
+    var resultMsg: String? = null
+    var word: Word? = null
     var findResult = MutableLiveData<List<WordEntity>>()
 
     /**
@@ -32,12 +32,19 @@ class MainVM @Inject constructor(val repo: AppServiceRepo) : ViewModel(){
                 override suspend fun onDataResult(data: Word?) {
                     super.onDataResult(data)
                     word = data
-                    Log.d("word",word.toString())
-
-                    resultCode.value= SUCCESS_CODE
+                    Log.d("word", word.toString())
+                    resultCode.value = SUCCESS_CODE
                     word?.apply {
                         MMKVManage.lastWord = this.hitokoto
-                        insertWord(WordEntity(this.id,this.hitokoto,this.author,this.source,this.date))
+                        insertWord(
+                            WordEntity(
+                                this.id,
+                                this.hitokoto,
+                                this.author,
+                                this.source,
+                                this.date
+                            )
+                        )
                     }
 
                 }
@@ -45,13 +52,13 @@ class MainVM @Inject constructor(val repo: AppServiceRepo) : ViewModel(){
                 override suspend fun onCodeResult(code: Int, msg: String?) {
                     super.onCodeResult(code, msg)
                     //msg应该在code前赋值，不然在监听到code变化的时候msg仍然是null
-                    resultMsg=msg
-                    resultCode.value=code
+                    resultMsg = msg
+                    resultCode.value = code
                 }
 
                 override suspend fun onErrorResult(throwable: Throwable) {
                     super.onErrorResult(throwable)
-                    resultCode.value= ERROR_CODE
+                    resultCode.value = ERROR_CODE
                 }
             })
         }
@@ -60,10 +67,10 @@ class MainVM @Inject constructor(val repo: AppServiceRepo) : ViewModel(){
     /**
      * 查询数据库中所有的一言
      */
-    fun findWords(){
+    fun findWords() {
         viewModelScope.launch(Dispatchers.Main) {
-            repo.findWords{
-                Log.d("db","查询结果为:$it")
+            repo.findWords {
+                Log.d("db", "查询结果为:$it")
                 findResult.value = it
             }
         }
@@ -72,9 +79,27 @@ class MainVM @Inject constructor(val repo: AppServiceRepo) : ViewModel(){
     /**
      * 向数据库中插入一条一言
      */
-     fun insertWord(word:WordEntity){
+    fun insertWord(word: WordEntity) {
         viewModelScope.launch(Dispatchers.Main) {
             repo.insertWord(word)
+        }
+    }
+
+    /**
+     * 在数据库中删除一条一言
+     */
+    fun deleteWord(word: WordEntity) {
+        viewModelScope.launch(Dispatchers.Main) {
+            repo.deleteWord(word)
+        }
+    }
+
+    /**
+     * 在数据库中更新一条一言
+     */
+    suspend fun updateWord(word: WordEntity) {
+        viewModelScope.launch(Dispatchers.Main) {
+            repo.updateWord(word)
         }
     }
 

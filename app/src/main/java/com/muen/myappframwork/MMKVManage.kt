@@ -16,10 +16,10 @@ object MMKVManage {
     /**
      * 上一次的一言
      */
-    var lastWord:String?
+    var lastWord: String?
         set(value) {
             mmkv.encode(KEY_LAST_WORD, value)
         }
-        get() = mmkv.decodeString(KEY_LAST_WORD)?:""
+        get() = mmkv.decodeString(KEY_LAST_WORD) ?: ""
 
 }

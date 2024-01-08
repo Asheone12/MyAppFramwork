@@ -29,16 +29,30 @@ class AppServiceRepo @Inject constructor(
      * 查询数据库中的一言
      */
     suspend fun findWords(handler: (List<WordEntity>) -> Unit) {
-        wordDao.loadWords().collect{
+        wordDao.loadWords().collect {
             handler.invoke(it)
         }
     }
 
     /**
-     * 插入一条一言到数据库
+     * 向数据库中插入一条一言
      */
-    suspend fun insertWord(word: WordEntity){
-         wordDao.insertWord(word)
+    suspend fun insertWord(word: WordEntity) {
+        wordDao.insertWord(word)
+    }
+
+    /**
+     * 在数据库中删除一条一言
+     */
+    suspend fun deleteWord(word: WordEntity) {
+        wordDao.deleteWord(word)
+    }
+
+    /**
+     * 在数据库中更新一条一言
+     */
+    suspend fun updateWord(word: WordEntity) {
+        wordDao.updateWord(word)
     }
 
 }

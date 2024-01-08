@@ -27,11 +27,11 @@ interface WordDao {
      * 删除一言，Room 使用主键将传递的实体实例与数据库中的行进行匹配。如果没有具有相同主键的行，Room 不会进行删除
      */
     @Delete
-    suspend fun delete(word: WordEntity)
+    suspend fun deleteWord(word: WordEntity)
 
     /**
      * 更新一言，Room 使用主键将传递的实体实例与数据库中的行进行匹配。如果没有具有相同主键的行，Room 不会进行任何更改
      */
     @Update
-    suspend fun updateUsers(vararg word: WordEntity)
+    suspend fun updateWord(vararg word: WordEntity)
 }

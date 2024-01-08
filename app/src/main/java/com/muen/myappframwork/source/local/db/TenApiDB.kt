@@ -8,8 +8,9 @@ import com.muen.myappframwork.source.local.dao.WordDao
 import com.muen.myappframwork.source.local.entity.WordEntity
 
 @Database(version = 1, entities = [WordEntity::class])
-abstract class TenApiDB: RoomDatabase() {
+abstract class TenApiDB : RoomDatabase() {
     abstract fun wordDao(): WordDao
+
     companion object {
         private var instance: TenApiDB? = null
 
