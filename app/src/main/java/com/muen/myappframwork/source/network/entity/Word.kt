@@ -1,4 +1,4 @@
-package com.muen.myappframwork.entity
+package com.muen.myappframwork.source.network.entity
 
 data class Word(
     var id: String,
