@@ -9,18 +9,17 @@ object MMKVManage {
     const val SUCCESS_CODE = 200
     const val ERROR_CODE = 404
     const val HTTP_TIME_OUT = 20L
-    const val DEBUG=false
 
     //缓存变量
-    private const val KEY_USERNAME = "username"
+    private const val KEY_LAST_WORD = "last_word"
 
     /**
-     * 设备的激活时间
+     * 上一次的一言
      */
-    var username:String?
+    var lastWord:String?
         set(value) {
-            mmkv.encode(KEY_USERNAME, value)
+            mmkv.encode(KEY_LAST_WORD, value)
         }
-        get() = mmkv.decodeString(KEY_USERNAME)?:""
+        get() = mmkv.decodeString(KEY_LAST_WORD)?:""
 
 }

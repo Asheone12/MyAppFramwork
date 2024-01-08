@@ -1,6 +1,7 @@
 package com.muen.myappframwork.ui
 
 import androidx.activity.viewModels
+import com.muen.myappframwork.MMKVManage
 import com.muen.myappframwork.MMKVManage.SUCCESS_CODE
 import com.muen.myappframwork.databinding.ActivityMainBinding
 import com.muen.myappframwork.ui.vm.MainVM
@@ -34,6 +35,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         viewModel.resultCode.observe(this){
             if (it==SUCCESS_CODE){
                 if(viewModel.word != null){
+                    viewBinding.txtLastWord.text = MMKVManage.lastWord
                     viewBinding.txtWord.text = viewModel.word!!.hitokoto
                 }
             }

@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.muen.myappframwork.MMKVManage
 import com.muen.myappframwork.MMKVManage.ERROR_CODE
 import com.muen.myappframwork.MMKVManage.SUCCESS_CODE
 import com.muen.myappframwork.entity.Word
@@ -31,6 +32,7 @@ class MainVM @Inject constructor(val repo: AppServiceRepo) : ViewModel(){
                     word = data
                     Log.d("word",word.toString())
                     resultCode.value= SUCCESS_CODE
+                    MMKVManage.lastWord = word?.hitokoto
                 }
 
                 override suspend fun onCodeResult(code: Int, msg: String?) {
