@@ -65,7 +65,7 @@ class MainVM @Inject constructor(val repo: AppServiceRepo) : ViewModel() {
     }
 
     /**
-     * 查询数据库中所有的一言
+     * 查询数据库中所有的一言,不能用suspend修饰，否则在其他地方不能直接使用
      */
     fun findWords() {
         viewModelScope.launch(Dispatchers.Main) {
@@ -77,7 +77,7 @@ class MainVM @Inject constructor(val repo: AppServiceRepo) : ViewModel() {
     }
 
     /**
-     * 向数据库中插入一条一言
+     * 向数据库中插入一条一言,不能用suspend修饰，否则在其他地方不能直接使用
      */
     fun insertWord(word: WordEntity) {
         viewModelScope.launch(Dispatchers.Main) {
@@ -86,7 +86,7 @@ class MainVM @Inject constructor(val repo: AppServiceRepo) : ViewModel() {
     }
 
     /**
-     * 在数据库中删除一条一言
+     * 在数据库中删除一条一言,不能用suspend修饰，否则在其他地方不能直接使用
      */
     fun deleteWord(word: WordEntity) {
         viewModelScope.launch(Dispatchers.Main) {
@@ -95,9 +95,9 @@ class MainVM @Inject constructor(val repo: AppServiceRepo) : ViewModel() {
     }
 
     /**
-     * 在数据库中更新一条一言
+     * 在数据库中更新一条一言,不能用suspend修饰，否则在其他地方不能直接使用
      */
-    suspend fun updateWord(word: WordEntity) {
+    fun updateWord(word: WordEntity) {
         viewModelScope.launch(Dispatchers.Main) {
             repo.updateWord(word)
         }
