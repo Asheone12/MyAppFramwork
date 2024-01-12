@@ -32,12 +32,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         viewBinding.rvWords.adapter = adapter
     }
 
-    override fun initData() {
-        super.initData()
-        //查询数据库，获取一言数据
-        viewModel.findWords()
-    }
-
     override fun initListener() {
         super.initListener()
         viewBinding.btnWord.setOnClickListener {
@@ -69,7 +63,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             }
         }
 
-        viewModel.findResult.observe(this) {
+        viewModel.findWords {
             if (it.isNotEmpty()) {
                 viewBinding.txtDbWord.text = "数据库内的一言数:" + it.size
                 val words = it
@@ -78,6 +72,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 adapter.submitList(words)
             }
         }
+
     }
 
 }

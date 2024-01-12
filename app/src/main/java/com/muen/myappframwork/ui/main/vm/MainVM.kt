@@ -9,6 +9,7 @@ import com.muen.myappframwork.MMKVManage.ERROR_CODE
 import com.muen.myappframwork.MMKVManage.SUCCESS_CODE
 import com.muen.myappframwork.http.CommonHandler
 import com.muen.myappframwork.repo.AppServiceRepo
+import com.muen.myappframwork.source.local.dao.WordDao
 import com.muen.myappframwork.source.local.entity.WordEntity
 import com.muen.myappframwork.source.network.entity.Word
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,11 +18,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainVM @Inject constructor(private val repo: AppServiceRepo) : ViewModel() {
+class MainVM @Inject constructor(private val repo: AppServiceRepo, private val wordDao: WordDao) :
+    ViewModel() {
     val resultCode = MutableLiveData<Int?>()
     var resultMsg: String? = null
     var word: Word? = null
-    var findResult = MutableLiveData<List<WordEntity>>()
 
     /**
      * 调用获取一言接口
@@ -67,11 +68,10 @@ class MainVM @Inject constructor(private val repo: AppServiceRepo) : ViewModel()
     /**
      * 查询数据库中所有的一言,不能用suspend修饰，否则在其他地方不能直接使用
      */
-    fun findWords() {
+    fun findWords(handler: (List<WordEntity>) -> Unit) {
         viewModelScope.launch(Dispatchers.Main) {
-            repo.findWords {
-                Log.d("db", "查询结果为:$it")
-                findResult.value = it
+            wordDao.loadWords().collect {
+                handler.invoke(it)
             }
         }
     }
@@ -81,7 +81,7 @@ class MainVM @Inject constructor(private val repo: AppServiceRepo) : ViewModel()
      */
     fun insertWord(word: WordEntity) {
         viewModelScope.launch(Dispatchers.Main) {
-            repo.insertWord(word)
+            wordDao.insertWord(word)
         }
     }
 
@@ -90,7 +90,7 @@ class MainVM @Inject constructor(private val repo: AppServiceRepo) : ViewModel()
      */
     fun deleteWord(word: WordEntity) {
         viewModelScope.launch(Dispatchers.Main) {
-            repo.deleteWord(word)
+            wordDao.deleteWord(word)
         }
     }
 

@@ -11,9 +11,17 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface WordDao {
+    /**
+     * 查询所有一言
+     * Flow中的collect本身就是一个挂起函数，所以不需要额外用suspend修饰
+     */
     @Query("select * from T_Word")
     fun loadWords(): Flow<List<WordEntity>>
 
+    /**
+     * 查询指定一言
+     * Flow中的collect本身就是一个挂起函数，所以不需要额外用suspend修饰
+     */
     @Query("select * from T_Word where wid = :wid")
     fun findWord(wid: String): Flow<WordEntity>
 
