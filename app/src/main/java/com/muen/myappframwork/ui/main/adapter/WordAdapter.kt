@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -14,8 +13,8 @@ import com.muen.myappframwork.source.local.entity.WordEntity
 class WordAdapter:androidx.recyclerview.widget.ListAdapter<WordEntity, WordAdapter.WordAdapterVH>(
     diff
 ) {
-    var updateClickListener :((WordEntity)->Unit)?=null
     var delClickListener :((WordEntity)->Unit)?=null
+    var clickListener :((WordEntity,Int)->Unit)?=null
 
     companion object {
         val diff = object : DiffUtil.ItemCallback<WordEntity>() {
@@ -31,8 +30,6 @@ class WordAdapter:androidx.recyclerview.widget.ListAdapter<WordEntity, WordAdapt
 
     class WordAdapterVH(itemView: View): RecyclerView.ViewHolder(itemView){
         val txtWord: TextView = itemView.findViewById(R.id.txt_item_word)
-        val editAuthor:EditText = itemView.findViewById(R.id.edit_author)
-        val btnUpdate: Button = itemView.findViewById(R.id.btn_update)
         val btnDel:Button = itemView.findViewById(R.id.btn_del)
 
         companion object{
@@ -50,13 +47,11 @@ class WordAdapter:androidx.recyclerview.widget.ListAdapter<WordEntity, WordAdapt
     override fun onBindViewHolder(holder: WordAdapterVH, position: Int) {
         val word = getItem(position)
         holder.txtWord.text = word.word
-        holder.editAuthor.setText(word.author)
         holder.btnDel.setOnClickListener {
             delClickListener?.invoke(word)
         }
-        holder.btnUpdate.setOnClickListener {
-            word.author = holder.editAuthor.text.toString()
-            updateClickListener?.invoke(word)
+        holder.itemView.setOnClickListener{
+            clickListener?.invoke(word,position)
         }
     }
 }

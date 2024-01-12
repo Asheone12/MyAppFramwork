@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainVM @Inject constructor(val repo: AppServiceRepo) : ViewModel() {
+class MainVM @Inject constructor(private val repo: AppServiceRepo) : ViewModel() {
     val resultCode = MutableLiveData<Int?>()
     var resultMsg: String? = null
     var word: Word? = null
@@ -91,15 +91,6 @@ class MainVM @Inject constructor(val repo: AppServiceRepo) : ViewModel() {
     fun deleteWord(word: WordEntity) {
         viewModelScope.launch(Dispatchers.Main) {
             repo.deleteWord(word)
-        }
-    }
-
-    /**
-     * 在数据库中更新一条一言,不能用suspend修饰，否则在其他地方不能直接使用
-     */
-    fun updateWord(word: WordEntity) {
-        viewModelScope.launch(Dispatchers.Main) {
-            repo.updateWord(word)
         }
     }
 

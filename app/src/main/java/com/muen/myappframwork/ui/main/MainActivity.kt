@@ -3,6 +3,9 @@ package com.muen.myappframwork.ui.main
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
+import com.muen.myappframwork.ARouteAddress
 import com.muen.myappframwork.MMKVManage
 import com.muen.myappframwork.MMKVManage.SUCCESS_CODE
 import com.muen.myappframwork.databinding.ActivityMainBinding
@@ -11,6 +14,7 @@ import com.muen.myappframwork.ui.main.vm.MainVM
 import com.muen.myappframwork.util.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
+@Route(path = ARouteAddress.APP_MAIN)
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>() {
     private val viewModel by viewModels<MainVM>()
@@ -45,9 +49,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             Toast.makeText(this, "删除成功！", Toast.LENGTH_SHORT).show()
         }
 
-        adapter.updateClickListener = {
-            viewModel.updateWord(it)
-            Toast.makeText(this, "更新成功！", Toast.LENGTH_SHORT).show()
+        adapter.clickListener = { word,position->
+            ARouter.getInstance().build(ARouteAddress.APP_WORD_INFO)
+                .withParcelable(ARouteAddress.EXTRA_WORD_ENTITY,word)
+                .withInt(ARouteAddress.EXTRA_POSITION,position)
+                .navigation()
         }
     }
 
