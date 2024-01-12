@@ -1,17 +1,16 @@
 package com.muen.myappframwork.ui.main
 
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.muen.myappframwork.ARouteAddress
 import com.muen.myappframwork.MMKVManage
-import com.muen.myappframwork.MMKVManage.SUCCESS_CODE
 import com.muen.myappframwork.databinding.ActivityMainBinding
 import com.muen.myappframwork.ui.main.adapter.WordAdapter
 import com.muen.myappframwork.ui.main.vm.MainVM
 import com.muen.myappframwork.util.BaseActivity
+import com.muen.myappframwork.util.ToastUtils
 import dagger.hilt.android.AndroidEntryPoint
 
 @Route(path = ARouteAddress.APP_MAIN)
@@ -40,7 +39,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         adapter.delClickListener = {
             viewModel.deleteWord(it)
-            Toast.makeText(this, "删除成功！", Toast.LENGTH_SHORT).show()
+            ToastUtils.toast("删除成功！")
         }
 
         adapter.clickListener = { word,position->
@@ -53,8 +52,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun observerData() {
         super.observerData()
-        viewModel.resultCode.observe(this) {
-            if (it == SUCCESS_CODE) {
+        viewModel.getResult.observe(this) {
+            if (it) {
                 if (viewModel.word != null) {
                     //显示上一次的一言和本次的一言
                     viewBinding.txtLastWord.text = "上一次:" + MMKVManage.lastWord

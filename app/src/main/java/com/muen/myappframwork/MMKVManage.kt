@@ -7,7 +7,6 @@ object MMKVManage {
 
     //常量
     const val SUCCESS_CODE = 200
-    const val ERROR_CODE = 404
     const val HTTP_TIME_OUT = 20L
 
     //缓存变量

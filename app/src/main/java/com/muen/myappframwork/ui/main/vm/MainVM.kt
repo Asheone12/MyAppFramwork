@@ -5,8 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.muen.myappframwork.MMKVManage
-import com.muen.myappframwork.MMKVManage.ERROR_CODE
-import com.muen.myappframwork.MMKVManage.SUCCESS_CODE
 import com.muen.myappframwork.http.CommonHandler
 import com.muen.myappframwork.repo.AppServiceRepo
 import com.muen.myappframwork.source.local.dao.WordDao
@@ -20,8 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainVM @Inject constructor(private val repo: AppServiceRepo, private val wordDao: WordDao) :
     ViewModel() {
-    val resultCode = MutableLiveData<Int?>()
-    var resultMsg: String? = null
+    val getResult = MutableLiveData<Boolean>()
     var word: Word? = null
 
     /**
@@ -34,7 +31,7 @@ class MainVM @Inject constructor(private val repo: AppServiceRepo, private val w
                     super.onDataResult(data)
                     word = data
                     Log.d("word", word.toString())
-                    resultCode.value = SUCCESS_CODE
+                    getResult.value = true
                     word?.apply {
                         MMKVManage.lastWord = this.hitokoto
                         insertWord(
@@ -47,20 +44,8 @@ class MainVM @Inject constructor(private val repo: AppServiceRepo, private val w
                             )
                         )
                     }
-
                 }
 
-                override suspend fun onCodeResult(code: Int, msg: String?) {
-                    super.onCodeResult(code, msg)
-                    //msg应该在code前赋值，不然在监听到code变化的时候msg仍然是null
-                    resultMsg = msg
-                    resultCode.value = code
-                }
-
-                override suspend fun onErrorResult(throwable: Throwable) {
-                    super.onErrorResult(throwable)
-                    resultCode.value = ERROR_CODE
-                }
             })
         }
     }

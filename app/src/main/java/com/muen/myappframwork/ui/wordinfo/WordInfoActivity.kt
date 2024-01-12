@@ -1,6 +1,5 @@
 package com.muen.myappframwork.ui.wordinfo
 
-import android.widget.Toast
 import androidx.activity.viewModels
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -10,6 +9,7 @@ import com.muen.myappframwork.databinding.ActivityWordInfoBinding
 import com.muen.myappframwork.source.local.entity.WordEntity
 import com.muen.myappframwork.ui.wordinfo.vm.WordInfoVM
 import com.muen.myappframwork.util.BaseActivity
+import com.muen.myappframwork.util.ToastUtils
 import dagger.hilt.android.AndroidEntryPoint
 
 @Route(path = ARouteAddress.APP_WORD_INFO)
@@ -52,7 +52,7 @@ class WordInfoActivity : BaseActivity<ActivityWordInfoBinding>() {
                 viewBinding.date.text.toString()
             )
             viewModel.updateWord(newWord)
-            Toast.makeText(this, "更新成功！", Toast.LENGTH_SHORT).show()
+            ToastUtils.toast("更新成功！")
             finish()
         }
     }

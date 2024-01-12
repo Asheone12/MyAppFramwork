@@ -1,8 +1,8 @@
 package com.muen.myappframwork
 
 import android.app.Application
-import android.util.Log
 import com.alibaba.android.arouter.launcher.ARouter
+import com.muen.myappframwork.util.ToastUtils
 import com.tencent.mmkv.MMKV
 import dagger.hilt.android.HiltAndroidApp
 
@@ -11,9 +11,11 @@ class AppApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        //MMKV
-        val mmkvDir = MMKV.initialize(this)
+        //初始化MMKV，返回缓存地址
+        MMKV.initialize(this)
+        //初始化ARouter
         ARouter.init(this)
-        Log.d("mmkv", "mmkvDir=$mmkvDir")
+        //初始化ToastUtils
+        ToastUtils.init(this)
     }
 }
