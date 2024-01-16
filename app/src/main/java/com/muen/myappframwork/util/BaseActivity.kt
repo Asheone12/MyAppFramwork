@@ -18,6 +18,7 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         beforeOnCreate(savedInstanceState)
         super.onCreate(savedInstanceState)
+        ActivityManager.addActivity(this)
         //1. 设置布局
         viewBinding = onCreateViewBinding()
         setContentView(viewBinding.root)
@@ -29,6 +30,18 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
         initView()
         initData()
         initListener()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        ActivityManager.removeActivity(this)
+    }
+
+    /**
+     * 移除所有Activity，并退出应用
+     */
+    fun exit(){
+        ActivityManager.exit()
     }
 
     /**
