@@ -12,6 +12,12 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface WordDao {
     /**
+     * 查询一言数量
+     */
+    @Query("select count(*) from T_Word")
+    fun getWordCount():Flow<Int>
+
+    /**
      * 查询所有一言
      * Flow中的collect本身就是一个挂起函数，所以不需要额外用suspend修饰
      */

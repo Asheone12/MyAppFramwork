@@ -42,10 +42,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             ToastUtils.toast("删除成功！")
         }
 
-        adapter.clickListener = { word,position->
+        adapter.clickListener = { word, position ->
             ARouter.getInstance().build(ARouteAddress.APP_WORD_INFO)
-                .withParcelable(ARouteAddress.EXTRA_WORD_ENTITY,word)
-                .withInt(ARouteAddress.EXTRA_POSITION,position)
+                .withParcelable(ARouteAddress.EXTRA_WORD_ENTITY, word)
+                .withInt(ARouteAddress.EXTRA_POSITION, position)
                 .navigation()
         }
     }
@@ -63,13 +63,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         }
 
         viewModel.findWords {
-            if (it.isNotEmpty()) {
-                viewBinding.txtDbWord.text = "数据库内的一言数:" + it.size
-                val words = it
-                //使用submitList()时，每次需要传入一个新的List，否则更新无效。
-                //与recyclerview不同，它要求每次传入的list都是同一个对象
-                adapter.submitList(words)
-            }
+            viewBinding.txtDbWord.text = "数据库内的一言数:${it.size}"
+            val words = it
+            //使用submitList()时，每次需要传入一个新的List，否则更新无效。
+            //与recyclerview不同，它要求每次传入的list都是同一个对象
+            adapter.submitList(words)
         }
 
     }

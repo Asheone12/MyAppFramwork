@@ -7,6 +7,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import com.muen.myappframwork.ARouteAddress
+import com.muen.myappframwork.R
 import com.muen.myappframwork.databinding.ActivityWordInfoBinding
 import com.muen.myappframwork.source.local.entity.WordEntity
 import com.muen.myappframwork.ui.wordinfo.vm.WordInfoVM
@@ -71,7 +72,7 @@ class WordInfoActivity : BaseActivity<ActivityWordInfoBinding>() {
     override fun observerData() {
         super.observerData()
         viewModel.acgResult.observe(this){
-            Glide.with(this).load(it?.url).circleCrop().transition(withCrossFade()).into(viewBinding.imgAcg)
+            Glide.with(this).load(it?.url).placeholder(R.drawable.ic_launcher_background).circleCrop().transition(withCrossFade()).into(viewBinding.imgAcg)
         }
     }
 
