@@ -1,6 +1,5 @@
 package com.muen.myappframwork.ui.main.vm
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -30,7 +29,6 @@ class MainVM @Inject constructor(private val repo: AppServiceRepo, private val w
                 override suspend fun onDataResult(data: Word?) {
                     super.onDataResult(data)
                     word = data
-                    Log.d("word", word.toString())
                     getResult.value = true
                     word?.apply {
                         MMKVManage.lastWord = this.hitokoto

@@ -11,7 +11,7 @@ interface HttpResultHandler<T> {
 
 abstract class CommonHandler<T> : HttpResultHandler<T> {
     override suspend fun onDataResult(data: T?) {
-
+        Log.d("handle", "data=$data")
     }
 
     override suspend fun onCodeResult(code: Int, msg: String?) {
